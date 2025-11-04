@@ -1,5 +1,7 @@
 
-# Default config for sway
+# Omania Sway Config 
+# Abdullah Alomani | Youtube: Omania Learning Hub
+# https://omanialearninghub.com
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
@@ -10,12 +12,13 @@
 #
 # allow portals to grab the pointer for selection
 
-exec_always ~/.local/bin/sway-fade.sh
+
 
 
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
+# Set your monitor resolution and refresh rate
 output DP-2 resolution 1080x1920 position 0,0 transform 270
 output DP-3 resolution 1920x1080@239.649Hz position 1080 0 transform normal
 
@@ -175,28 +178,6 @@ client.urgent           #7A8862 #7A8862 #7A8862 #7A8862 #7A8862
 client.placeholder      #7A8862 #B8A78F #B8A78F #7A8862 #B8A78F
 
 
-################################################################################
-# SwayFX Animation Settings
-
-# Enable dimming of inactive windows
-
-################################################################################
-
-# Fade-in/fade-out for windows
-for_window [app_id="waybar"] blur enable
-for_window [app_id="waybar"] corner_radius 10
-blur enable
-blur_passes 1
-blur_radius 1
-
-
-
-# Dimming
-    # default_dim_inactive <float value 0.0 - 1.0>
-    # for_window [CRITERIA_HERE] dim_inactive <float value 0.0 - 1.0>
-    # dim_inactive_colors.unfocused <hex color>
-    # dim_inactive_colors.urgent <hex color>
-
 # Windows border colors
 
 #client.focused          #EEC096 #EEC096 #282828 #EEC096
@@ -268,7 +249,7 @@ set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Adwaita'
-    gsettings set $gnome-schema icon-theme 'Gruvbox-Dark'
+    gsettings set $gnome-schema icon-theme ''
     gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
     gsettings set $gnome-schema font-name 'Noto Sans Mono 10'
 }
@@ -342,11 +323,11 @@ exec export XKB_CONFIG_ROOT=/usr/share/X11/xkb
 # Lock screen and idle timeout
 
 exec swayidle -w \
-   timeout 300 'swaylock -f -i /home/omania/my-wallpapers/44031drsdl.jpg' \
-    before-sleep 'swaylock -f -i /home/omania/my-wallpapers/44031drsdl.jpg'
+   timeout 300 'swaylock -f -i /path/to/image' \
+    before-sleep 'swaylock -f -i /path/to/image'
 
 # Shortcut for lockscreen with swaylock 
-bindsym $mod+Shift+p exec swaylock -i /home/omania/my-wallpapers/44031drsdl.jpg
+bindsym $mod+Shift+p exec swaylock -i /path/to/image
 
 
 
