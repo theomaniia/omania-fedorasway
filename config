@@ -1,240 +1,510 @@
 
-// -*- mode: jsonc -*-
-{
-    // ADD THIS LINE (use your monitor's actual name):
-    "output": "DP-3",
-
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    
-    // Choose the order of the modules
-    "modules-left": [
-        "sway/workspaces",
-        "sway/mode",
-        "sway/scratchpad"
-    ],
-    "modules-center": [
-        "sway/window"
-    ],
-    
-    "modules-right": [
-        "pulseaudio",
-        "custom/cava",
-        "network",
-        "power-profiles-daemon",
-        "cpu",
-        "memory",
-        "temperature",
-        "backlight",
-        "sway/language",
-        "battery",
-        "clock",
-        "tray"
-    ],
-    "custom/spotify": {
-    "exec": "~/.config/waybar/scripts/spotify.sh",
-    "format": "{output}",
-    "interval": 3,
-    "tooltip": true,
-    "on-click": "playerctl play-pause --player=spotify",
-    "on-click-right": "playerctl next --player=spotify",
-    "on-click-middle": "playerctl previous --player=spotify"
-
-},
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
 
 
+### Variables
+#
+# allow portals to grab the pointer for selection
+
+exec_always ~/.local/bin/sway-fade.sh
+
+
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+output DP-2 resolution 1080x1920 position 0,0 transform 270
+output DP-3 resolution 1920x1080@239.649Hz position 1080 0 transform normal
+
+#output DP-3 resolution 1920x1080@239.649Hz position 1920 0 transform normal
+
+# Set inner gaps (space between individual windows)
+#gaps inner 10
+
+#Set outer gaps
+#gaps outer 5
+#default_border pixel 2 
+# Kill existing bars to avoid duplicates  
+# Start new swaybar on DP-3 Only 
+
+# Example (syntax may vary, check the swayfx documentation)
+# This is a conceptual example of how animations are configured.
+
+for_window [class="discord"] opacity 0.9
+for_window [class="Spotify"] opacity 0.9
+for_window [app_id="brave"] opacity 0.95
+for_window [app_id="pcmanfm"] opacity 0.8
+for_window [class="brave"] floating enable 
+
+# Bind the the key for floating the window 
+
+bindsym $mod+Shift+Return floating toggle
+
+# Move the floating window with mouse 
+
+floating_modifier $mod
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+# Recommends: foot
+set $term alacritty
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+# Recommends: rofi-wayland
+set $rofi_cmd rofi \
+        -terminal '$term'
+# Shows a combined list of the applications with desktop files and
+# executables from PATH.
+# TODO: add window with the next release of rofi-wayland
+set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# Requires: desktop-backgrounds-compat, swaybg, jxl-pixbuf-loader
+#output * bg /home/omania/my-wallpapers/foreset.jpg fill
+
+# Load Pywal colors
+include ~/.cache/wal/colors-sway
+exec_always ~/.config/wal/wal-set
+
+
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+# -----------------------------------------------------------------------------
+# GRUVBOX COLORSCHEME DEFINITIONS
+# -----------------------------------------------------------------------------
+# Gruvbox Dark Medium Palette
+set $gruv_bg        #282828
+set $gruv_fg        #ebdbb2
+set $gruv_red       #cc241d
+set $gruv_green     #98971a
+set $gruv_yellow    #d79921
+set $gruv_blue      #458588
+set $gruv_purple    #b16286
+set $gruv_aqua      #689d6a
+set $gruv_orange    #d65d0e
+set $gruv_bg_dark   #1d2021
+set $gruv_bg_light  #3c3836
+set $gruv_gray      #a89984
+
+# -----------------------------------------------------------------------------
+# WINDOW BORDER CONFIGURATION
+# -----------------------------------------------------------------------------
+# Set the gaps between windows
+gaps inner 10 
+
+# Set the gaps around the edge of the screen
+gaps outer 10 
+
+# Set the border style and thickness
+default_border pixel 2
+
+# Optional: Hide borders if only one window is on the workspace ("maximized")
+# hide_edge_borders smart
+
+# Define the colors for the client window border/titlebar.
+# Format: client.<class> <border> <background> <text> <indicator> <child_border>
+
+#client.focused          #AFE1AF #AFE1AF #AFE1AF #AFE1AF #AFE1AF
+#client.focused_inactive #AFE1AF #AFE1AF #AFE1AF #AFE1AF #AFE1AF
+#client.unfocused        #AFE1AF #AFE1AF #AFE1AF #AFE1AF #AFE1AF
+#client.urgent           #AFE1AF #AFE1AF #AFE1AF #AFE1AF #AFE1AF
+#client.placeholder      #AFE1AF #AFE1AF #AFE1AF #AFE1AF #AFE1AF
+
+# Brown earthy vibes borders
+
+#client.focused #C7A263 #1A1715 #1A1715 #1A1715 #C7A263
+#client.focused_inactive #937A5C #3E3932 #5A6B4D #5A6B4D #937A5C
+#client.unfocused #5A6B4D #1A1715 #5A6B4D #5A6B4D #1A1715
+#client.urgent #E06C75 #1A1715 #E06C75 #E06C75 #1A1715
+#client.placeholder #738B65 #3E3932 #937A5C #738B65 #3E3932
+
+# Nordic Omania Borders
+#client.focused            #5F85AD #3A4A57 #3A4A57 #3A4A57 #5F85AD
+#client.focused_inactive   #5F85AD #A8B8C8 #3A4A57 #3A4A57 #A8B8C8
+#client.unfocused          #5F85AD #3A4A57 #5F85AD #5F85AD #3A4A57
+#client.urgent             #D4D9E2 #3A4A57 #D4D9E2 #D4D9E2 #3A4A57
+#client.placeholder        #3A4A57 #A8B8C8 #A8B8C8 #3A4A57 #A8B8C8
+
+# Bromw  Wonderful borders colors by omania
+client.focused           #7A8862 #7A8862 #7A8862 #7A8862 #7A8862
+client.focused_inactive #7A8862 #B8A78F #7A8862 #7A8862 #B8A78F
+client.unfocused        #B8A78F #7A8862 #B8A78F #B8A78F #7A8862
+client.urgent           #7A8862 #7A8862 #7A8862 #7A8862 #7A8862
+client.placeholder      #7A8862 #B8A78F #B8A78F #7A8862 #B8A78F
+
+
+################################################################################
+# SwayFX Animation Settings
+
+# Enable dimming of inactive windows
+
+################################################################################
+
+# Fade-in/fade-out for windows
+for_window [app_id="waybar"] blur enable
+for_window [app_id="waybar"] corner_radius 10
+blur enable
+blur_passes 1
+blur_radius 1
 
 
 
+# Dimming
+    # default_dim_inactive <float value 0.0 - 1.0>
+    # for_window [CRITERIA_HERE] dim_inactive <float value 0.0 - 1.0>
+    # dim_inactive_colors.unfocused <hex color>
+    # dim_inactive_colors.urgent <hex color>
 
-    // Modules configuration
-    "sway/workspaces": {
-        // Uncomment this section to enable icons for your workspaces
-        // and link them to your CSS style.
-        // "disable-scroll": true,
-        // "all-outputs": true,
-        // "warp-on-scroll": false,
-        "format": "{name}", // Default format is often cleaner when using a simple config
-         "format-icons": {
-             "1": "", // Terminal
-             "2": "", // Browser (Chrome/Firefox)
-             "3": "", // Code
-             "4": "", // Music (Spotify)
-             "5": "", // Chat
-             "urgent": "",
-             "focused": "",
-             "default": ""
-         }
-    },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 5,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-        // "icons": {
-        //    "blueman": "bluetooth",
-        //    "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-        // }
-    },
-    "clock": {
-        // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%I:%M %p}",
-	"format-alt": "{:%Y-%m-%d}"
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["🌑", "🌘", "🌗", "🌖", "🌕"]
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/media": {
-        "format": "{icon} {text}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    },
-    "custom/power": {
-        "format" : "⏻ ",
-        "tooltip": false,
-        "menu": "on-click",
-        "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-        "menu-actions": {
-            "shutdown": "shutdown",
-            "reboot": "reboot",
-            "suspend": "systemctl suspend",
-            "hibernate": "systemctl hibernate"
-        }
-    }
+# Windows border colors
+
+#client.focused          #EEC096 #EEC096 #282828 #EEC096
+#client.focused_inactive #3c3836 #3c3836 #a89984 #3c3836
+#client.unfocused        #3c3836 #3c3836 #a89984 #3c3836
+#client.urgent           #cc241d #cc241d #fbf1c7 #cc241d
+# Example sway/config snippet
+#client.focused          #b57614 #b57614 #282828 #b57614
+#client.focused_inactive #3c3836 #3c3836 #a89984 #3c3836
+#client.unfocused        #3c3836 #3c3836 #a89984 #3c3836
+#client.urgent           #cc241d #cc241d #fbf1c7 #cc241d
+
+
+# Windows border colors 
+ 
+# --- Window Border Colors ---
+# Format: client.<state> <border> <background> <text> <indicator> <child_border>
+
+# Focused window: bright green highlight
+#client.focused          #AFE1AF #AFE1AF #000000 #AFE1AF #AFE1AF
+
+# Unfocused windows: slightly darker green
+#client.unfocused        #7FBF7F #7FBF7F #000000 #7FBF7F #7FBF7F
+
+# Inactive but focused (e.g. tabbed/stacked) windows: same as unfocused
+#client.focused_inactive #7FBF7F #7FBF7F #000000 #7FBF7F #7FBF7F
+
+# Urgent windows: darker green alert tone
+#client.urgent           #5F9F5F #5F9F5F #000000 #5F9F5F #5F9F5F
+
+# Placeholder (empty container): match unfocused
+#client.placeholder      #7FBF7F #7FBF7F #000000 #7FBF7F #7FBF7F
+
+
+# Focused Window - Highlight the border with Gruvbox Yellow for focus
+#client.focused          $gruv_yellow $gruv_bg_light $gruv_fg $gruv_yellow $gruv_bg_light
+
+# Focused Inactive Window (Visible on current workspace, but another is focused)
+# Use a subtle background color for the border.
+#client.focused_inactive $gruv_bg_light $gruv_bg_light $gruv_fg $gruv_bg_light $gruv_bg_light
+
+# Unfocused Window (On another workspace, or stacked)
+# Border disappears into the main background.
+#client.unfocused        $gruv_bg $gruv_bg $gruv_gray $gruv_bg $gruv_bg
+
+# Urgent Window (Requires attention) - Use Gruvbox Red
+#client.urgent           $gruv_red $gruv_red $gruv_fg $gruv_red $gruv_red
+
+# Background for floating/stacked/tabbed mode containers
+#client.placeholder      $gruv_bg_dark $gruv_bg_dark $gruv_fg $gruv_bg_dark $gruv_bg_dark
+
+# -----------------------------------------------------------------------------
+
+
+# Bind workspace 1 to a specific output and make it persistent
+workspace 1 output DP-3
+
+# Bind workspace 2 to a specific output and make it persistent
+workspace 2 output DP-3
+
+# Bind workspace 3 to a specific output and make it persistent
+workspace 3 output DP-3
+
+# You can repeat this for other workspaces (4, 5, etc.) if needed.
+# Any workspace not listed will be automatically assigned to the monitor 
+# you switch to when you create it.
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Adwaita'
+    gsettings set $gnome-schema icon-theme 'Gruvbox-Dark'
+    gsettings set $gnome-schema cursor-theme 'Your cursor Theme'
+    gsettings set $gnome-schema font-name 'Noto Sans Mono 10'
 }
 
+
+
+
+
+# This forces the icon theme to load before Wofi
+exec gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
+
+#### Step 4: Apply Changes
+
+# --- COMMENT OUT CONFLICTING COMMANDS ---
+# Comment out the generic input block if it still exists (using the # symbol):
+ input * {
+     xkb_layout "us,ara"
+     xkb_options "grp:alt_shift_toggle"
+ }
+
+# Also, comment out the last workaround we tried:
+ exec setxkbmap -layout "us,ara" -option "grp:alt_shift_toggle"
+
+# --- KEEP THE XKB PATH FIX (This is vital) ---
+exec export XKB_CONFIG_ROOT=/usr/share/X11/xkb
+
+# --- NEW: TARGETED INPUT BLOCK ---
+# This block targets your specific keyboard device by its identifier.
+input "13357:58566:MILE_EPOMAKER_Split65_Keyboard" {
+    xkb_layout "us,ara"
+    xkb_options "grp:alt_shift_toggle"
+} 
+
+# FORCES SWAY TO FIND XKB CONFIG FILES
+exec export XKB_CONFIG_ROOT=/usr/share/X11/xkb
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+q exec $term
+
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec fuzzel show menu
+   
+    # Start file manager pcmanfm
+    bindsym $mod+Shift+f exec pcmanfm
+   
+    # Start slurp screenshot tool
+    bindsym $mod+Shift+s exec grim -g "$(slurp)" ~/Pictures/Screenshots/screenshot-$(date +%s).png
+
+    # Start emacs
+    bindsym $mod+Shift+a exec emacs
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
+# Lock screen and idle timeout
+
+exec swayidle -w \
+   timeout 300 'swaylock -f -i /home/omania/my-wallpapers/44031drsdl.jpg' \
+    before-sleep 'swaylock -f -i /home/omania/my-wallpapers/44031drsdl.jpg'
+
+# Shortcut for lockscreen with swaylock 
+bindsym $mod+Shift+p exec swaylock -i /home/omania/my-wallpapers/44031drsdl.jpg
+
+
+
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+
+#    
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Include configs from 3 locations:
+#  - /usr/share/sway/config.d
+#  - /etc/sway/config.d
+#  - $XDG_CONFIG_HOME/sway/config.d ($HOME/.config/sway/config.d)
+#
+# If multiple directories contain the files with the same name, the later
+# directory takes precedence; `$XDG_CONFIG_HOME/sway/config.d/20-swayidle.conf`
+# will always be loaded instead of `/usr/share/sway/config.d/20-swayidle.conf`
+# or `/etc/sway/config.d/20-swayidle.conf`
+#
+# This mechanism permits overriding our default configuration per-system
+# (/etc) or per-user ($XDG_CONFIG_HOME) basis. Just create the file you
+# want to modify/override in the higher-level directory.
+#
+# For example, to disable the default bar from Fedora configs, you'll need to
+#     $ echo -n > "$HOME/.config/sway/config.d/90-bar.conf"
+#
+# Note the quoting, the $() and the arguments quoting. All the parts are equally
+# important to make the magic work. And if you want to learn the secret behind
+# the trick, it's all in the `wordexp(3)`.
+#
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+
+# ======================
+# Border Control Mode
+# ======================
+
+# Enter border mode
+bindsym $mod+Shift+b mode "borders"
+
+mode "borders" {
+    # Toggle between border styles
+    bindsym t border toggle
+
+    # Set specific border types
+    bindsym n border none
+    bindsym s border normal
+    bindsym 1 border pixel 1
+    bindsym 2 border pixel 2
+    bindsym 3 border pixel 3
+
+    # Exit mode
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
