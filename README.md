@@ -7,4 +7,4 @@ EXAMPLE: mv waybar-config /home/user/.config/waybar/config
 # Alacritty syncing with pywal
 ![A screenshot of the project interface](sway1.png)
 # Fastfetch
-![A screenshot of the project interface](sway2.png)
+![A screenshot of the project interface](sway3.png)
