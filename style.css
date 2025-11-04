@@ -1,0 +1,190 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: 'FiraCode Nerd Font', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+window#waybar {
+    background-color: #151602;
+    padding-top: 5px;
+    color: #fdf5c9;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+#workspaces button {
+    padding-left: 10px;
+    padding-right: 10px;
+    /*padding-top: 5px;
+    padding-bottom: 5px;*/
+
+    background-color: transparent;
+    color: inherit;
+    font-weight: 600;
+    border-top: 4px solid transparent;
+    border-bottom: 3px solid transparent;
+
+}
+
+#workspaces button:first-child {
+    border-left: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+#workspaces button.focused {
+    background: rgba(0, 0, 0, 0.2);
+    color: #EBE3D9;
+
+
+}
+
+i#workspaces button.focused + button {
+    border-left: none;
+}
+
+#workspaces button.focused:first-child {
+    border-left: none;
+}
+
+#workspaces button.focused:last-child {
+    border-right: none;
+}
+
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#mpd, #pulseaudio, #network, #cpu, #memory, #temperature, #clock, #window {
+    padding-left: 8px;
+    padding-right: 8px;
+    /*
+    padding-top: 5px;
+    padding-bottom: 5px;
+    */
+
+    background-color: transparent;
+    color: inherit;
+    font-weight: 600;
+    border-top: 4px solid transparent;
+    border-bottom: 3px solid transparent;
+}
+
+#tray {
+    padding-left: 8px;
+    padding-right:8px;
+    min-width: 40px;
+    font-size: 20px;
+}
+
+#window {
+    min-width: 500px;
+}
+
+#clock {
+    font-size: 14px;
+}
+
+#mpd.playing {
+
+    background: repeating-linear-gradient(
+          45deg,
+          #453e48,
+	  #453e48 12px,
+	  #3d3540 12px,
+	  #3d3540 24px
+    );
+    background-size: 120% 100%;
+    animation: scroll 0.5s linear infinite;
+
+}
+
+@keyframes scroll {
+    from {
+        background-position: -33.941125497px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+/* Warm Sunlight Orange/Copper and Cool Steel Blue/Gray Scheme */
+
+/* --- Vibrant Multi-Color Scheme --- */
+
+/* --- Blended Nature-Inspired Multi-Color Scheme --- */
+
+#pulseaudio {
+    color: #6A5F48;           /* Deep Olive/Khaki */
+    border-bottom-color: #6A5F48;
+}
+
+#network {
+    color: #B88D4D;           /* Rich Gold/Bronze (Filtered Sunlight) */
+    border-bottom-color: #B88D4D;
+}
+
+#cpu {
+    color: #738B65;           /* Deeper Forest Green */
+    border-bottom-color: #738B65;
+}
+
+#memory {
+    color: #A5C37A;           /* Light Moss Green */
+    border-bottom-color: #A5C37A;
+}
+
+#disk {
+    color: #3E3932;           /* Darkest Espresso Brown (Forest Shadow) */
+    border-bottom-color: #3E3932;
+}
+
+#battery {
+    color: #937A5C;           /* Muted Tan/Sepia */
+    border-bottom-color: #937A5C;
+}
+
+/* Ensure the border style and width are set if they aren't global */
+#pulseaudio, #network, #cpu, #memory, #disk, #battery {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+
+/* --- Custom Weather Module Styling (Using Earth/Sunlight Tones) --- */
+#custom-weather {
+    /* Rich Gold/Bronze color for the text/icon, matching the #network module */
+    color: #B88D4D;
+
+    /* Using a subtle background to make it readable against the bar background */
+    background-color: transparent;
+
+    /* We will use the same underline style as your other modules for consistency */
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #B88D4D;
+
+    /* Add padding and margins to match the look of your other blocks */
+    padding: 0 10px;
+    margin: 0 4px;
+    font-weight: bold; /* Optional: adds emphasis to the temperature/icon */
+}
