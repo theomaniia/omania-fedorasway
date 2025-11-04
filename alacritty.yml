@@ -1,0 +1,10 @@
+# Alacritty Configuration File
+
+font:
+  normal:
+    family: monospace
+    style: Regular
+  size: 14.0
+
+# You can add more options here later if you want
+background_opacity = 0.5
