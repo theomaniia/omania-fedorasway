@@ -6,5 +6,5 @@ EXAMPLE: mv waybar-config /home/user/.config/waybar/config
 
 # Alacritty syncing with pywal
 ![A screenshot of the project interface](sway1.png)
-# Fastfetch
+# Look and feel
 ![A screenshot of the project interface](sway3.png)
