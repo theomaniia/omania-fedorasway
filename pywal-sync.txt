@@ -1,0 +1,2 @@
+PUT THIS AT THE END OF ~/.bashrc : 
+(cat ~/.cache/wal/sequences &)
