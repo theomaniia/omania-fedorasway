@@ -1,0 +1,6 @@
+swaybg -i "$(< ~/.cache/wal/wal)" -m fill &
+
+# Apply Fuzzel theme from Pywal
+if [ -f "$HOME/.cache/wal/fuzzel.ini" ]; then
+    cp "$HOME/.cache/wal/fuzzel.ini" "$HOME/.config/fuzzel/fuzzel.ini"
+fi
