@@ -6,3 +6,5 @@ EXAMPLE: mv waybar-config /home/user/.config/waybar/config
 
 #Live Demo/Screenshot
 ![A screenshot of the project interface](sway1.png)
+#Live Demo/Screenshot
+![A screenshot of the project interface](sway2.png)
