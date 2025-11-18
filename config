@@ -1,0 +1,44 @@
+# Default Config by theomania --- YT: Omania Learning Hub
+# Use the current screen's screenshot as background
+screenshots
+
+# Apply effects
+effect-blur=7x5
+effect-vignette=0.5:0.5
+# Clock and indicator settings
+clock
+indicator
+timestr="%H:%M:%S"
+datestr="%a, %d %b"
+indicator-radius=120
+indicator-thickness=8
+ignore-empty-password
+
+# Catppuccin Mocha Color Palette (Hex codes)
+# Background color (Mantle/Crust - darker background)
+inside-color=0x1e1e2e
+bs-color=0x181825
+# Ring color (Blue - a vibrant accent)
+ring-color=0xdc8a78
+# Line color (transparent for a clean look)
+line-color=0x00000000
+# Text color (Text/Overlay - bright and readable)
+text-color=0xcdd6f4
+# Key highlight color (Lavender - a secondary accent for incorrect attempts)
+key-hl-color=0xb4befe
+# Separator color (transparent)
+separator-color=0x00000000
+# Inside clear color (Mantle)
+inside-clear-color=0x1e1e2e
+# Ring clear color (Green for success)
+ring-clear-color=0xa6e3a1
+# Inside wrong color (Mantle)
+inside-wrong-color=0x1e1e2e
+# Ring wrong color (Red for error)
+ring-wrong-color=0xf38ba8
+# Text wrong color (Red)
+text-wrong-color=0xf38ba8
+
+# Optional: show a message if attempts fail
+show-failed-attempts
+fade-in=0.5
